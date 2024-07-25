@@ -27,22 +27,19 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         fetchTopPosts()
-        }
+    }
 
-    private fun fetchTopPosts(){
+    private fun fetchTopPosts() {
         val call = RetrofitInstance.api.getTopPosts()
 
-        call.enqueue(object: Callback<RedditResponse> {
+        call.enqueue(object : Callback<RedditResponse> {
             override fun onResponse(
                 call: Call<RedditResponse>,
                 response: Response<RedditResponse>
             ) {
-                if(response.isSuccessful){
-                    response.body()?.data?.children?.let {
-                        redditChildren ->
-                        val posts = redditChildren.map{
-                            it.data
-                        }
+                if (response.isSuccessful) {
+                    response.body()?.data?.children?.let { redditChildren ->
+                        val posts = redditChildren.map { it.data }
                         postsAdapter = PostsAdapter(posts)
                         recyclerView.adapter = postsAdapter
                     }
@@ -51,36 +48,31 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<RedditResponse>, t: Throwable){
-                Log.e("MainActivity", "Error fetching posts")
+            override fun onFailure(call: Call<RedditResponse>, t: Throwable) {
+                Log.e("MainActivity", "Error fetching posts", t)
             }
         })
     }
-
-
-
-
-
-
-
 }
 
 
 data class RedditResponse(
-    val data: RedditData,
+    val data: RedditData
 )
 
 data class RedditData(
-    val children: List<RedditChildren>,
+    val children: List<RedditChildren>
 )
 
 data class RedditChildren(
-    val data: RedditPost,
+    val data: RedditPost
 )
 
 data class RedditPost(
     val title: String,
-    val score: Int,
-    val permalink: String,
-    val url: String,
+    val author: String,
+    val created_utc: Long,
+    val thumbnail: String,
+    val num_comments: Int,
+    val url: String
 )

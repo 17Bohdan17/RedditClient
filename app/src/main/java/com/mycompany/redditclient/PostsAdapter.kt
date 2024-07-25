@@ -1,5 +1,6 @@
 package com.mycompany.redditclient
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class PostsAdapter(private val posts: List<RedditPost>) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
 
@@ -15,33 +19,44 @@ class PostsAdapter(private val posts: List<RedditPost>) : RecyclerView.Adapter<P
         return PostViewHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = posts[position]
         holder.postTitle.text = post.title
-        holder.postUrl.text = post.url
+        holder.postAuthor.text = "Author: ${post.author}"
 
-        if(post.url.endsWith("jpg") || post.url.endsWith(".png")){
-            holder.postImage.visibility = View.VISIBLE
+        val date = Date(post.created_utc * 1000)
+        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
+        val formattedDate = sdf.format(date)
+        holder.postDate.text = formattedDate
+
+        holder.postComments.text = "Comments: ${post.num_comments}"
+
+        if (post.thumbnail.isNotEmpty() && post.thumbnail.startsWith("http")) {
+            holder.postThumbnail.visibility = View.VISIBLE
             Glide.with(holder.itemView.context)
-                .load(post.url)
-                .into(holder.postImage)
+                .load(post.thumbnail)
+                .into(holder.postThumbnail)
+
+            holder.postThumbnail.setOnClickListener {
+                val intent = Intent(holder.itemView.context, ImageActivity::class.java)
+                intent.putExtra("IMAGE_URL", post.url)
+                holder.itemView.context.startActivity(intent)
+            }
         } else {
-            holder.postImage.visibility = View.GONE
+            holder.postThumbnail.visibility = View.GONE
         }
     }
-
-
 
     override fun getItemCount(): Int {
         return posts.size
     }
 
-
-    class PostViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val postTitle: TextView = itemView.findViewById(R.id.postTitle)
-        val postImage: ImageView = itemView.findViewById(R.id.postImage)
-        val postUrl: TextView = itemView.findViewById(R.id.postUrl)
+        val postAuthor: TextView = itemView.findViewById(R.id.postAuthor)
+        val postDate: TextView = itemView.findViewById(R.id.postDate)
+        val postThumbnail: ImageView = itemView.findViewById(R.id.postThumbnail)
+        val postComments: TextView = itemView.findViewById(R.id.postComments)
     }
 }
 

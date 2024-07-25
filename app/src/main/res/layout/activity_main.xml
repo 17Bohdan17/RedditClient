@@ -19,18 +19,32 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/postAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/postDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"/>
+
 
     <ImageView
-        android:id="@+id/postImage"
+        android:id="@+id/postThumbnail"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/postUrl"
+        android:id="@+id/postComments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#0000EE" />
+        android:textSize="14sp"/>
+
+
 </LinearLayout>
