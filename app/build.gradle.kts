@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.recyclerview)
     implementation(libs.glide)
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     kapt(libs.glideCompiler)
 }
 
