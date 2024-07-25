@@ -12,7 +12,15 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PostsAdapter(private val posts: List<RedditPost>) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
+class PostsAdapter(private var posts: MutableList<RedditPost>) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
+
+
+
+    fun addPosts(newPosts: List<RedditPost>) {
+        val currentSize = posts.size
+        posts.addAll(newPosts)
+        notifyItemRangeInserted(currentSize, newPosts.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent, false)
