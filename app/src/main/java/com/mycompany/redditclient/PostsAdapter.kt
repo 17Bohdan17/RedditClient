@@ -1,5 +1,6 @@
 package com.mycompany.redditclient
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,15 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PostsAdapter(private val posts: List<RedditPost>) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
+class PostsAdapter(private var posts: MutableList<RedditPost>, private val context: Context) : RecyclerView.Adapter<PostsAdapter.PostViewHolder>() {
+
+
+
+    fun addPosts(newPosts: List<RedditPost>) {
+        val currentSize = posts.size
+        posts.addAll(newPosts)
+        notifyItemRangeInserted(currentSize, newPosts.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent, false)
@@ -42,14 +51,18 @@ class PostsAdapter(private val posts: List<RedditPost>) : RecyclerView.Adapter<P
                 intent.putExtra("IMAGE_URL", post.url)
                 holder.itemView.context.startActivity(intent)
             }
+
+            holder.postThumbnail.setOnLongClickListener {
+                (context as MainActivity).saveImageToGallery(post.thumbnail)
+                true
+            }
+
         } else {
             holder.postThumbnail.visibility = View.GONE
         }
     }
 
-    override fun getItemCount(): Int {
-        return posts.size
-    }
+    override fun getItemCount(): Int = posts.size
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val postTitle: TextView = itemView.findViewById(R.id.postTitle)
@@ -59,5 +72,7 @@ class PostsAdapter(private val posts: List<RedditPost>) : RecyclerView.Adapter<P
         val postComments: TextView = itemView.findViewById(R.id.postComments)
     }
 }
+
+
 
 
