@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     kapt(libs.glideCompiler)
+    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 }
 
 kapt {
