@@ -14,9 +14,10 @@ class ImageActivity : AppCompatActivity() {
         val imageView: ImageView = findViewById(R.id.fullImageView)
         val imageUrl = intent.getStringExtra("IMAGE_URL")
 
-        if (imageUrl != null) {
+        // Завантажуємо зображення, якщо URL доступний
+        imageUrl?.let {
             Glide.with(this)
-                .load(imageUrl)
+                .load(it)
                 .into(imageView)
         }
     }

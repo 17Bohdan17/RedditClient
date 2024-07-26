@@ -4,54 +4,58 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
+    android:layout_margin="8dp"
     android:background="@drawable/post_background"
     android:elevation="4dp"
-    android:layout_margin="8dp"
+    android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!-- RecyclerView для списку постів -->
+<androidx.recyclerview.widget.RecyclerView
+android:id="@+id/recyclerView"
+android:layout_width="match_parent"
+android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/postTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
-    
-    <TextView
-        android:id="@+id/postAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#666666"
-        android:layout_marginBottom="4dp"/>
+    <!-- Заголовок поста -->
+<TextView
+android:id="@+id/postTitle"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginBottom="4dp"
+android:textSize="18sp"
+android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/postDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#666666"
-        android:layout_marginBottom="4dp"/>
+    <!-- Автор поста -->
+<TextView
+android:id="@+id/postAuthor"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginBottom="4dp"
+android:textColor="#666666" />
 
+    <!-- Дата поста -->
+<TextView
+android:id="@+id/postDate"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginBottom="4dp"
+android:textColor="#666666" />
 
-    <ImageView
-        android:id="@+id/postThumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:visibility="gone"
-        android:layout_marginBottom="8dp"/>
+    <!-- Прев’ю поста (може бути приховане) -->
+<ImageView
+android:id="@+id/postThumbnail"
+android:layout_width="match_parent"
+android:layout_height="200dp"
+android:layout_marginBottom="8dp"
+android:scaleType="centerCrop"
+android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/postComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"/>
+    <!-- Кількість коментарів до поста -->
+<TextView
+android:id="@+id/postComments"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginBottom="8dp" />
 
-
-</LinearLayout>
+    </LinearLayout>
